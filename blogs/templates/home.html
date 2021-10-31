@@ -1,0 +1,28 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    {% for post in object_list %}
+        <div class="card" style="width: 18rem; display: inline-table;">
+            <div class="card-body">
+                {% if post.images %}
+                    <a href="{{ post.get_absolute_url }}"><img class="d-block img-fluid" src="{{ post.images.url }}"></a>
+                {% else %}
+                    <a href="{{ post.get_absolute_url }}"><img class="d-block img-fluid" src="{% static 'images/default.png' %}"></a>
+                {% endif %}
+                {{ post.post_date }}
+                <a href="{% url 'category' post.category %}">{{ post.category }}</a>
+                <h5 class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
+                {% if user.is_authenticated %}
+                    {% if user.id == post.author.id %}
+                        <a href="{% url 'update_post' post.slug %}">(Изменить)</a> |
+                        <a href="{% url 'delete_post' post.slug %}">(Удалить)</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %} 
+    
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends '_base.html' %}
+
+
+{% block content %}
+
+    <h1>{{ post.title }} !!!</h1>
+    <small>By: 
+        {{ post.author.first_name }}  
+        {{ post.author.last_name }}
+        {{ post.post_date }}<br>
+        <hr>
+
+        {% if user.is_authenticated %}
+            {% if user.id == post.author.id %}
+                <a href="{% url 'update_post' post.slug %}">(Edit)</a> |
+                <a href="{% url 'delete_post' post.slug %}">(Delete)</a>
+            {% endif %}
+        {% endif %}
+    </small>
+    <br>
+    {{ post.body|safe }}
+
+    <br>
+
+{% endblock %}

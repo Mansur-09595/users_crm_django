@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h1>Создать пост</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button class="btn btn-secondary">Post</button>
+    </form>
+{% else %}
+
+    Вы не авторизированный!!!
+
+{% endif %}
+{% endblock %}

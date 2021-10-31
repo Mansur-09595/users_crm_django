@@ -1,0 +1,26 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Посты{% endblock title %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    {% if user.id == post.author.id %}
+        <h1>Обновить пост (изменить)</h1>
+        <form action="" method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+            <button class="btn btn-info ml-2" type="submit">Update</button>
+        </form>
+    {% else %}
+
+    Вы не являетесь автором поста( изменения вам не доступны  )!!!
+
+    {% endif %}
+{% else %}
+
+    Вы не авторизированный!!!
+
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends '_base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  {% if user.id == post.author.id %}
+    <h1>Delete</h1>
+    <form action="" method="post">{% csrf_token %}
+      <p>Are you sure you want to delete "{{ article.username }}"?</p>
+      <button class="btn btn-danger ml-2" type="submit">Confirm</button>
+    </form>
+  {% else %}
+    У вас нету право !!!
+  {% endif %}
+{% else %}
+
+    Вы не авторизированный!!!
+
+{% endif %}
+{% endblock content %}
