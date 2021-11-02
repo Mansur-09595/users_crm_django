@@ -1,33 +1,29 @@
 {% extends "_base.html" %}
 
 {% block title %}
-Catlist
+Разделы
 {% endblock %}
 
 {% block content %}
-
-   <div class="album py-5 bg-light">
-    <div class="container">
-      <div class="row">
-    <div class="col-12 pb-5"><h1> List of {{catlist.cat}} posts</h1></div>
+    <div class="col-12 pb-5"><h1> Раздел: {{catlist.cat}}</h1></div>
     {% for post in catlist.posts %}
-        <div class="col-md-4">
-        <a class="text-dark" href="{{post.get_absolute_url}}">
-          <div class="card mb-4 box-shadow">
-            <img class="card-img-top" src="https://picsum.photos/200/100" alt="Card image cap">
-            <div class="card-body">
-              <h2 style="font-size:18px;font-weight:bold">{{post.title|truncatechars:50}}</h2>
-              <p class="card-text">{{post.excerpt|truncatechars:50}}</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <small class="text-muted">9 mins</small>
-              </div>
-            </div>
-          </div>
-          </a>
+    <div class="card" style="width: 18rem; display: inline-table;">
+        <div class="card-body">
+            {% if post.images %}
+                <a href="{{ post.get_absolute_url }}"><img class="d-block img-fluid" src="{{ post.images.url }}"></a>
+            {% else %}
+                <a href="{{ post.get_absolute_url }}"><img class="d-block img-fluid" src="https://www.kenyons.com/wp-content/uploads/2017/04/default-image-620x600.jpg"></a>
+            {% endif %}
+            {{ post.post_date }}
+            <h5 class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
+            {% if user.is_authenticated %}
+                {% if user.id == post.author.id %}
+                    <a href="{% url 'update_post' post.slug %}">(Изменить)</a> |
+                    <a href="{% url 'delete_post' post.slug %}">(Удалить)</a>
+                {% endif %}
+            {% endif %}
         </div>
-    {% endfor %}
-      </div>
     </div>
-  </div>
+{% endfor %} 
 
 {% endblock %}

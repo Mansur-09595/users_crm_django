@@ -5,8 +5,8 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .models import Post, Category
-from .forms import PostForm
+from .models import Comment, Post, Category
+from .forms import PostForm, CommentForm
 
 class HomePostView(LoginRequiredMixin, ListView):
     model = Post
@@ -26,6 +26,17 @@ class HomePostView(LoginRequiredMixin, ListView):
 class DetailPostView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = 'article_detail.html'
+
+class CreateCommentView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+    #fields = ('name', 'body',)
+    template_name = 'add_comment.html'
+    success_url = reverse_lazy('home')
+    
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
+        return super().form_valid(form)
 
 
 class CreatePostView(LoginRequiredMixin, CreateView):
