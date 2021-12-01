@@ -4,7 +4,7 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-<h1>Создать отдел</h1>
+<h1>Создать язык</h1>
     <form method="Post">
         {% csrf_token %}
         {{ form|crispy }}

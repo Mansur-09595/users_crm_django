@@ -16,7 +16,7 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-bottom: 35px;">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{% url 'home' %}">Newspaper</a>
+          <a class="navbar-brand" href="{% url 'home' %}">USERS CRM</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -38,13 +38,16 @@
                 </div>
               </li>
               
-              
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'add_post' %}">Добавить пост</a>
+                <a class="nav-link" href="{% url 'add_post' %}">Добавить пользователя</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'add_category' %}">Добавить раздел</a>
+                <a class="nav-link" href="{% url 'add_category' %}">Добавить отдел</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'add_language' %}">Добавить язык</a>
               </li>
 
               <li class="nav-item">

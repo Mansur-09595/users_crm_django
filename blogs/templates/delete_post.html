@@ -5,7 +5,7 @@
   {% if user.id == post.author.id %}
     <h1>Удалить</h1>
     <form action="" method="post">{% csrf_token %}
-      <p>Вы уверены что хотите удалить свой пост <strong>{{ post.title }}</strong>?</p>
+      <p>Вы уверены что хотите удалить свой пост <strong>{{ post.first_name }}</strong>?</p>
       <button class="btn btn-danger ml-2" type="submit">Согласен</button>
     </form>
   {% else %}

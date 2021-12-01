@@ -6,24 +6,38 @@
 
 {% block content %}
     <div class="col-12 pb-5"><h1> Раздел: {{catlist.cat}}</h1></div>
-    {% for post in catlist.posts %}
-    <div class="card" style="width: 18rem; display: inline-table;">
-        <div class="card-body">
-            {% if post.images %}
-                <a href="{{ post.get_absolute_url }}"><img class="d-block img-fluid" src="{{ post.images.url }}"></a>
-            {% else %}
-                <a href="{{ post.get_absolute_url }}"><img class="d-block img-fluid" src="https://www.kenyons.com/wp-content/uploads/2017/04/default-image-620x600.jpg"></a>
-            {% endif %}
-            {{ post.post_date }}
-            <h5 class="card-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h5>
-            {% if user.is_authenticated %}
-                {% if user.id == post.author.id %}
-                    <a href="{% url 'update_post' post.slug %}">(Изменить)</a> |
-                    <a href="{% url 'delete_post' post.slug %}">(Удалить)</a>
+<table class="table mb-0">
+    <thead>
+      <tr>
+        <th>Имя</th>
+        <th>Фамилия</th>
+        <th>Отдел</th>
+        <th>Язык</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in catlist.posts %}
+        <tr>
+          <td>{{ post.first_name }}</td>
+          <td>{{ post.last_name }}</td>
+          <td><a href="{% url 'category' post.category %}">{{ post.category }}</a></td>
+          <td><a href="{% url 'language' post.language %}">{{ post.language }}</a></td>
+          <td>
+            <form method="post" action="#">
+              {% csrf_token %}
+
+              {% if user.is_authenticated %}
+                    {% if user.id == post.author.id %}
+                        <a href="{% url 'update_post' post.pk %}">(Изменить)</a> |
+                        <a href="{% url 'delete_post' post.pk %}">(Удалить)</a>
+                    {% endif %}
                 {% endif %}
-            {% endif %}
-        </div>
-    </div>
-{% endfor %} 
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 
 {% endblock %}

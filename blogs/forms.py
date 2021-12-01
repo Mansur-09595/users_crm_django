@@ -12,7 +12,7 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ('title', 'images', 'category', 'body',)
+        fields = ('first_name', 'last_name', 'age', 'category', 'language', )
 
         # widgets = {
         #     'category': forms.Select(choices=choice_list, attrs={'class': 'form-group'})

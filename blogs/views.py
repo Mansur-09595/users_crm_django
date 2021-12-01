@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .models import Comment, Post, Category
+from .models import Comment, Post, Category, Language
 from .forms import PostForm, CommentForm
 
 class HomePostView(LoginRequiredMixin, ListView):
@@ -54,6 +54,11 @@ class CreateGategoryView(CreateView):
     fields = '__all__'
     template_name = 'add_category.html'
 
+class CreateLanguageView(CreateView):
+    model = Language
+    fields = '__all__'
+    template_name = 'add_language.html'
+
 
 class UpdatePostView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
@@ -90,5 +95,24 @@ def category_list(request):
     category_list = Category.objects.exclude(name='default')
     context = {
         "category_list": category_list,
+    }
+    return context
+
+
+class LangListView(ListView):
+    context_object_name = 'langlist'
+    template_name = 'language.html'
+
+    def get_queryset(self):
+        content = {
+            'cat': self.kwargs['language'],
+            'posts': Post.objects.filter(language__name=self.kwargs['language']).filter()
+        }
+        return content
+
+def language_list(request):
+    language_list = Language.objects.exclude(name='default')
+    context = {
+        "language_list": language_list,
     }
     return context

@@ -1,0 +1,43 @@
+{% extends "_base.html" %}
+
+{% block title %}
+Разделы
+{% endblock %}
+
+{% block content %}
+    <div class="col-12 pb-5"><h1> Язык: {{langlist.cat}}</h1></div>
+    <table class="table mb-0">
+        <thead>
+          <tr>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Отдел</th>
+            <th>Язык</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for post in langlist.posts %}
+            <tr>
+              <td>{{ post.first_name }}</td>
+              <td>{{ post.last_name }}</td>
+              <td><a href="{% url 'category' post.category %}">{{ post.category }}</a></td>
+              <td><a href="{% url 'language' post.language %}">{{ post.language }}</a></td>
+              <td>
+                <form method="post" action="#">
+                  {% csrf_token %}
+    
+                  {% if user.is_authenticated %}
+                        {% if user.id == post.author.id %}
+                            <a href="{% url 'update_post' post.pk %}">(Изменить)</a> |
+                            <a href="{% url 'delete_post' post.pk %}">(Удалить)</a>
+                        {% endif %}
+                    {% endif %}
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+{% endblock %}

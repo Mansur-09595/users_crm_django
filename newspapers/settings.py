@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-p)h!b55cab()df2@m!r!6*zly*1(=8#nu&eqmj#)fm&kii#)n5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'corsheaders',
+
     #3rd Party
     'crispy_forms',
 
@@ -46,7 +48,10 @@ INSTALLED_APPS = [
     'users',
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -83,8 +88,12 @@ WSGI_APPLICATION = 'newspapers.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bbxnrllo',
+        'USER': 'bbxnrllo',
+        'PASSWORD': '7SWLbOTSYMjwHpp3WHxjq9xJ7evlv-Jd',
+        'HOST': 'castor.db.elephantsql.com',
+        'PORT': '5432',
     }
 }
 
@@ -143,10 +152,3 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
-
-DJANGORESIZED_DEFAULT_SIZE = [1280, 900]
-DJANGORESIZED_DEFAULT_QUALITY = 75
-DJANGORESIZED_DEFAULT_KEEP_META = True
-DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
-DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg"}
-DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
