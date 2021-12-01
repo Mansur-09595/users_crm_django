@@ -3,7 +3,7 @@ from django.urls import reverse
 
 from django.contrib.auth import get_user_model
 
-#Create your models here.
+#Create category models
 class Category(models.Model):
     name = models.CharField(max_length=255, verbose_name='Имя отдела')
 
@@ -13,6 +13,7 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('home')
 
+#Create language models
 class Language(models.Model):
     name = models.CharField(max_length=255, verbose_name='Язык')
 
@@ -22,7 +23,7 @@ class Language(models.Model):
     def get_absolute_url(self):
         return reverse('home')
 
-
+#Create users models
 class Post(models.Model):
     first_name = models.CharField(max_length=255, verbose_name='Имя')
     last_name = models.CharField(max_length=255, verbose_name='Фамилия')
@@ -38,7 +39,7 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('home')
 
-
+#Create сomment models
 class Comment(models.Model):
     post = models.ForeignKey(
         Post,
