@@ -42,6 +42,9 @@ INSTALLED_APPS = [
 
     #3rd Party
     'crispy_forms',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_swagger',
 
     #Local
     'blogs',
@@ -76,6 +79,9 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'blogs.views.category_list',
             ],
+            'libraries' : {
+                'staticfiles': 'django.templatetags.static', 
+            },
         },
     },
 ]
@@ -163,3 +169,16 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
+
+REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' }
+
+SWAGGER_SETTINGS = {
+    'LOGIN_URL': 'rest_framework:login',
+    'LOGOUT_URL': 'rest_framework:logout',
+}

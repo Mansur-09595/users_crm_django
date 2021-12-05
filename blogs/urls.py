@@ -1,5 +1,18 @@
 from django.urls import path
-from .views import HomePostView, DeletePostView, CreatePostView, UpdatePostView, DetailPostView, CreateGategoryView, CatListView, CreateCommentView, CreateLanguageView, LangListView
+from .views import (
+    HomePostView,
+    DeletePostView, 
+    CreatePostView, 
+    UpdatePostView, 
+    DetailPostView, 
+    CreateGategoryView, 
+    CatListView, 
+    CreateCommentView, 
+    CreateLanguageView, 
+    LangListView,
+    UsersApiList,
+    UsersApiDetail,
+    )
 
 urlpatterns = [
     path(r'', HomePostView.as_view(), name="home"),
@@ -18,4 +31,8 @@ urlpatterns = [
 
 
     path(r'article/<int:pk>/comment/', CreateCommentView.as_view(), name="add_comment"),
+
+    #API_USERS_URLS
+    path(r'api/', UsersApiList.as_view(), name='api'),
+    path(r'api/<int:pk>/', UsersApiDetail.as_view()),
 ]

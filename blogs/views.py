@@ -1,11 +1,11 @@
-from django.db import models
-from django.db.models.query import QuerySet
-from django.shortcuts import render
+from rest_framework import generics
+
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from .models import Comment, Post, Category, Language
+from .serializers import UsersSerializer
 from .forms import PostForm, CommentForm
 
 class HomePostView(LoginRequiredMixin, ListView):
@@ -19,18 +19,15 @@ class HomePostView(LoginRequiredMixin, ListView):
         context["cat_menu"] = cat_menu
         return context
 
-# def CategoryView(request, cats):
-#     category_posts = Post.objects.filter(category=cats)
-#     return render(request, 'categories.html', {'cats':cats, 'category_posts':category_posts})
 
 class DetailPostView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = 'article_detail.html'
 
+
 class CreateCommentView(LoginRequiredMixin, CreateView):
     model = Comment
     form_class = CommentForm
-    #fields = ('name', 'body',)
     template_name = 'add_comment.html'
     success_url = reverse_lazy('home')
     
@@ -116,3 +113,13 @@ def language_list(request):
         "language_list": language_list,
     }
     return context
+
+# API_VIEWS
+
+class UsersApiList(generics.ListCreateAPIView):
+    queryset = Post.objects.all()
+    serializer_class = UsersSerializer
+
+class UsersApiDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Post.objects.all()
+    serializer_class = UsersSerializer

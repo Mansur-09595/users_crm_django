@@ -9,3 +9,10 @@ img {
 .card { 
     margin: 0px 15px 0px 15px;
 }
+
+footer {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+}
