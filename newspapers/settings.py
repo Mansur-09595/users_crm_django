@@ -94,25 +94,25 @@ WSGI_APPLICATION = 'newspapers.wsgi.application'
 
 
 # DB:SQLite turn_on/off
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 
 # DB:POSTGRESQL turn_on/off
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bbxnrllo',
-        'USER': 'bbxnrllo',
-        'PASSWORD': '7SWLbOTSYMjwHpp3WHxjq9xJ7evlv-Jd',
-        'HOST': 'castor.db.elephantsql.com',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'bbxnrllo',
+#         'USER': 'bbxnrllo',
+#         'PASSWORD': '7SWLbOTSYMjwHpp3WHxjq9xJ7evlv-Jd',
+#         'HOST': 'castor.db.elephantsql.com',
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
