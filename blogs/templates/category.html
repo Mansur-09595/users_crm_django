@@ -5,24 +5,22 @@
 {% endblock %}
 
 {% block content %}
-    <div class="col-12 pb-5"><h1> Раздел: {{catlist.cat}}</h1></div>
+    <div class="col-12 pb-5"><h1> Парковка: {{catlist.cat}}</h1></div>
 <table class="table mb-0">
     <thead>
       <tr>
         <th>Имя</th>
-        <th>Фамилия</th>
-        <th>Отдел</th>
-        <th>Язык</th>
+        <th>Время</th>
+        <th>Парковка</th>
         <th>Delete</th>
       </tr>
     </thead>
     <tbody>
       {% for post in catlist.posts %}
         <tr>
-          <td>{{ post.first_name }}</td>
-          <td>{{ post.last_name }}</td>
+          <td>{{ post.full_name }}</td>
+          <td>{{ post.time }}</td>
           <td><a href="{% url 'category' post.category %}">{{ post.category }}</a></td>
-          <td><a href="{% url 'language' post.language %}">{{ post.language }}</a></td>
           <td>
             <form method="post" action="#">
               {% csrf_token %}

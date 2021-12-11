@@ -7,10 +7,18 @@
 {% block content %}
 {% if user.is_authenticated %}
     {% if user.id == post.author.id %}
-        <h1>Обновить пост (изменить)</h1>
+        <h1>Update Parking Space (edit)</h1>
         <form action="" method="post">
-                {% csrf_token %}
-                {{ form|crispy }}
+            {% csrf_token %}
+            <label for="{{ form.full_name.id_for_label }}">Name</label>
+            <input class="form-control" id="full_name" name="full_name" type="text" placeholder="Full Name" {{ form.full_name }} >
+            <br>
+            <label for="{{ form.time.id_for_label }}">Time</label>
+            <input type="time" id="inputMDEx1" name="time" class="form-control" {{ form.time }}>
+            <br>
+            <label for="{{ form.category.id_for_label }}">Parking Space</label>
+            <select class="form-select" aria-label="Default select example"{{ form.category }}>
+            <br>
             <button class="btn btn-info ml-2" type="submit">Update</button>
         </form>
     {% else %}

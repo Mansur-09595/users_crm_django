@@ -19,16 +19,4 @@
     {{ post.body|safe }}
 
     <br>
-    <hr>
-    <h2>Комментарии...</h2>
-    {% for comment in post.comments.all %}
-            <p>
-              <span class="font-weight-bold">{{ comment.name }} &middot; {{ comment.date }} &middot;</span>
-              <br>
-              {{ comment.body }}
-            </p>
-    {% endfor %}
-
-    <a href="{% url 'add_comment' post.pk %}">Добавить комментарий</a>
-
 {% endblock %}

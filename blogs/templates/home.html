@@ -7,21 +7,17 @@
     <thead>
       <tr>
         <th>Имя</th>
-        <th>Фамилия</th>
-        <th>Возраст</th>
-        <th>Отдел</th>
-        <th>Язык</th>
+        <th>Время</th>
+        <th>Парковка</th>
         <th>Delete</th>
       </tr>
     </thead>
     <tbody>
       {% for post in object_list %}
         <tr>
-          <td>{{ post.first_name }}</td>
-          <td>{{ post.last_name }}</td>
-          <td>{{ post.age }}</td>
+          <td>{{ post.full_name }}</td>
+          <td>{{ post.time }}</td>
           <td><a href="{% url 'category' post.category %}">{{ post.category }}</a></td>
-          <td><a href="{% url 'language' post.language %}">{{ post.language }}</a></td>
           <td>
             <form method="post" action="#">
               {% csrf_token %}

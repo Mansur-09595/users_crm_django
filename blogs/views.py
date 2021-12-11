@@ -4,10 +4,11 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
-from .models import Comment, Post, Category, Language
+from .models import Post, Category
 from .serializers import UsersSerializer
-from .forms import PostForm, CommentForm
+from .forms import PostForm
 
+#Home_Page_View
 class HomePostView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'home.html'
@@ -24,18 +25,7 @@ class DetailPostView(LoginRequiredMixin, DetailView):
     model = Post
     template_name = 'article_detail.html'
 
-
-class CreateCommentView(LoginRequiredMixin, CreateView):
-    model = Comment
-    form_class = CommentForm
-    template_name = 'add_comment.html'
-    success_url = reverse_lazy('home')
-    
-    def form_valid(self, form):
-        form.instance.post_id = self.kwargs['pk']
-        return super().form_valid(form)
-
-
+#Create_Post_View
 class CreatePostView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
@@ -45,18 +35,13 @@ class CreatePostView(LoginRequiredMixin, CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
-
+#Create_Category_view
 class CreateGategoryView(CreateView):
     model = Category
     fields = '__all__'
     template_name = 'add_category.html'
 
-class CreateLanguageView(CreateView):
-    model = Language
-    fields = '__all__'
-    template_name = 'add_language.html'
-
-
+#Update_View
 class UpdatePostView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     form_class = PostForm
@@ -67,6 +52,7 @@ class UpdatePostView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         obj = self.get_object()
         return obj.author == self.request.user
 
+#Delete_View
 class DeletePostView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Post
     template_name = 'delete_post.html'
@@ -76,7 +62,7 @@ class DeletePostView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         obj = self.get_object()
         return obj.author == self.request.user
 
-
+#Category_Choise_View
 class CatListView(ListView):
     context_object_name = 'catlist'
     template_name = 'category.html'
@@ -95,27 +81,7 @@ def category_list(request):
     }
     return context
 
-
-class LangListView(ListView):
-    context_object_name = 'langlist'
-    template_name = 'language.html'
-
-    def get_queryset(self):
-        content = {
-            'cat': self.kwargs['language'],
-            'posts': Post.objects.filter(language__name=self.kwargs['language']).filter()
-        }
-        return content
-
-def language_list(request):
-    language_list = Language.objects.exclude(name='default')
-    context = {
-        "language_list": language_list,
-    }
-    return context
-
 # API_VIEWS
-
 class UsersApiList(generics.ListCreateAPIView):
     queryset = Post.objects.all()
     serializer_class = UsersSerializer
